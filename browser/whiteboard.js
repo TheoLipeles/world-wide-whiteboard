@@ -1,6 +1,6 @@
 document.ontouchstart = function(e){ 
     e.preventDefault(); 
-}
+};
 
 window.whiteboard = new window.EventEmitter();
 
@@ -22,6 +22,12 @@ window.whiteboard = new window.EventEmitter();
         // the elements id, remove the selected class from all colors,
         // and then add the selected class to the clicked color.
         el.addEventListener('click', function () {
+            color = this.id;
+            document.querySelector('.selected').classList.remove('selected');
+            this.classList.add('selected');
+        });
+
+        el.addEventListener('touchstart', function () {
             color = this.id;
             document.querySelector('.selected').classList.remove('selected');
             this.classList.add('selected');
