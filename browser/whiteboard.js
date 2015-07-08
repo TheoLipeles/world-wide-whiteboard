@@ -1,3 +1,7 @@
+document.ontouchstart = function(e){ 
+    e.preventDefault(); 
+}
+
 window.whiteboard = new window.EventEmitter();
 
 (function () {
@@ -48,6 +52,16 @@ window.whiteboard = new window.EventEmitter();
         y: 0
     };
 
+    var currentTouchPosition = {
+        x: 0,
+        y: 0
+    };
+
+    var lastTouchPosition = {
+        x: 0,
+        y: 0
+    };
+
     var drawing = false;
 
     canvas.addEventListener('mousedown', function (e) {
@@ -73,6 +87,32 @@ window.whiteboard = new window.EventEmitter();
         whiteboard.draw(lastMousePosition, currentMousePosition, color, true);
 
     });
+
+    canvas.addEventListener('touchstart', function (e) {
+        drawing = true;
+        currentTouchPosition.x = e.pageX - this.offsetLeft;
+        currentTouchPosition.y = e.pageY - this.offsetTop;
+    });
+
+    canvas.addEventListener('touchend', function () {
+        drawing = false;
+    });
+
+    canvas.addEventListener('touchmove', function(e) {
+        if (!drawing) return;
+        var touch = e.targetTouches[0];
+
+        lastTouchPosition.x = currentTouchPosition.x;
+        lastTouchPosition.y = currentTouchPosition.y;
+
+        currentTouchPosition.x = e.pageX - this.offsetLeft;
+        currentTouchPosition.y = e.pageY - this.offsetTop;
+
+        console.log(lastTouchPosition, currentTouchPosition, color);
+
+        whiteboard.draw(lastTouchPosition, currentTouchPosition, color, true);
+    });
+
 
     whiteboard.draw = function (start, end, strokeColor, shouldBroadcast) {
 

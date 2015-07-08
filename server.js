@@ -10,6 +10,7 @@ server.on('request', app);
 
 var io = socketio.listen(server);
 
+
 io.on('connection', function(socket) {
 	console.log("A new client has connected");
 	console.log(socket.id);
@@ -20,6 +21,7 @@ io.on('connection', function(socket) {
 		socket.emit("draw", start, end, strokeColor);
 	});
 });
+
 
 server.listen(1337, function () {
     console.log('The server is listening on port 1337!');

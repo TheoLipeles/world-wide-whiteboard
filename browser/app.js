@@ -7,6 +7,7 @@ window.whiteboard.on("draw", function(start, end, strokeColor) {
 });
 
 
+
 socket.on("connect", function() {
 	console.log("It happened");
 });

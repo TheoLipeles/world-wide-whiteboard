@@ -22,3 +22,9 @@
 .marker.selected {
     border: 2px solid white;
 }
+
+body {
+    position: fixed;
+    overflow-y: scroll;
+    width: 100%;
+}
