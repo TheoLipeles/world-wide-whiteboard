@@ -17,6 +17,7 @@ io.on('connection', function(socket) {
 
 	socket.on("draw", function(start, end, strokeColor) {
 		socket.broadcast.emit("draw", start, end, strokeColor);
+		socket.emit("draw", start, end, strokeColor);
 	});
 });
 
